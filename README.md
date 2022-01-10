@@ -37,7 +37,7 @@ install anything. However, there are people who don't like
 running ``.exe`` files from random people over the internet,
 so I've included the source code if you want to run from that.
 
-### How does this program actually works?
+### How does this program actually work?
 For each character:
 1. Check the last note (generate a random note if it is the first note in the chart).
 2. If the last note's pitch is higher, reflect that in the chart (same chance that next arrow is 1 or 2 higher).
