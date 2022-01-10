@@ -13,6 +13,8 @@ Yes, this can generate FnF charts without the pain
 of you having to chart.
 
 ## Setting up your midi file
+Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UIs that count from 1) counts from 0.
+
 * Your MIDI channel 0 are your enemy notes.
 * Your MIDI channel 1 are your BF notes.
 * All other MIDI channels are ignored.
