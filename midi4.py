@@ -11,17 +11,22 @@ Autodetect sections:
 """
 from dataclasses import dataclass
 # from pprint import pprint
-
+from pprint import pprint
 import midi2 as mid2
 import midi3 as mid3
 import random
 import json
 import easygui
+import logging
 
+# logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 # channel 0 is always EN's notes.
 # all the notes must be in order.
 # a note sequence is a list of notes in a channel.
+
+
+DISABLE_PROMPTS = False
 
 
 @dataclass(frozen=True)
@@ -35,18 +40,30 @@ class Preferences:
 
 
 def process_notes(channel_data, spb: float, prefs: Preferences):
+    """Determine arrow position of notes for a character.
+    Channel data must be in time, pitch, velocity, dur format
+    """
     chart_notes = []
     prev_note = [0, 60, 100, 0.0]
+    prev_pitch = prev_note[1]
     cur_arrow = random.randint(0, 3)
     for note in channel_data:
+        logging.debug(f'---------- previous note is {cur_arrow}')
         cur_pitch = note[1]
-        prev_pitch = prev_note[1]
+        diff = cur_pitch - prev_pitch
+
         if cur_pitch < prev_pitch:
-            cur_arrow = (cur_arrow - random.randint(1, 2)) % 4
+            cur_arrow = (cur_arrow - one_or_two_seed(diff)) % 4
+            logging.debug(f'arrow down due to {cur_pitch} < {prev_pitch}')
         elif cur_pitch > prev_pitch:
-            cur_arrow = (cur_arrow + random.randint(1, 2)) % 4
+            cur_arrow = (cur_arrow + one_or_two_seed(diff)) % 4
+            logging.debug(f'arrow up due to {cur_pitch} > {prev_pitch}')
         elif random.randint(1, 3) <= prefs.jack_mode:
+            logging.debug(f'arrow randomized due to {cur_pitch} == {prev_pitch}')
             cur_arrow = (cur_arrow + random.randint(-2, 2)) % 4
+        else:
+            logging.debug(f'arrow same due to {cur_pitch} == {prev_pitch}')
+
         # account for sustains
         # sus_length = 0 if note[2] >= 60 else note[3]
         if note[2] < 60 or note[3] > (spb / 2) + 0.0001:
@@ -54,6 +71,8 @@ def process_notes(channel_data, spb: float, prefs: Preferences):
         else:
             sus_length = 0
         chart_notes.append([note[0] * 1000, cur_arrow, sus_length])
+        prev_pitch = cur_pitch
+        # prev_note = note.copy()
     return chart_notes
 
 
@@ -67,29 +86,50 @@ def one_or_two(chance: int) -> int:
         return 1
 
 
+def one_or_two_seed(seed: int) -> int:
+    """Return 1 or 2; chance of 2 represented by seed.
+    """
+    seed = abs(seed)
+    seed_map = {0: 0, 1: 1, 2: 1, 3: 2, 4: 3, 5: 3, 6: 4}
+    if seed <= 6:
+        chance = seed_map[seed]
+    else:
+        chance = 4
+    rand = random.randint(0, 4)
+    # the greater the chance, the higher that it is a two
+    # meaning
+    if chance >= rand:
+        return 2
+    else:
+        return 1
+
+
 def main(path: str):
     pm = mid2.process_midi(path)
     spb = mid2.obtain_spb(path)
     # print(spb)
     bpm = round(60 / spb, 3)
     print('Your BPM is ' + str(bpm))
-
-    p1 = input('Player 1? (Likely bf): ')
-    p2 = input('Player 2? (Enemy): ')
-    gf = input('gfVersion? (Likely gf): ')
-    song = input('Song name?: ')
-    stage = input('Stage name? ')
-    needs_voices_input = input('needs voices? (t/f, default t): ')
-    if needs_voices_input.lower() == 'f':
-        needs_voices = False
-        print('You choose FALSE for above.')
+    if not DISABLE_PROMPTS:
+        p1 = input('Player 1? (Likely bf): ')
+        p2 = input('Player 2? (Enemy): ')
+        gf = input('gfVersion? (Likely gf): ')
+        song = input('Song name?: ')
+        stage = input('Stage name? ')
+        needs_voices_input = input('needs voices? (t/f, default t): ')
+        if needs_voices_input.lower() == 'f':
+            needs_voices = False
+            print('You choose FALSE for above.')
+        else:
+            needs_voices = True
+        # valid_score = True
+        scroll_speed = input('Scroll speed?: ')
     else:
-        needs_voices = True
-    # valid_score = True
-    scroll_speed = input('Scroll speed?: ')
+        p1, p2, gf, song, stage, needs_voices, scroll_speed = 'bf', 'dad', 'gf', \
+                                                              'testsong', 'stage', 'True', '2.4'
 
     full_mid_data = mid3.main(pm)
-    prefs = Preferences(0, 75)
+    prefs = Preferences(0, 65)
     try:
         full_note_list_en = process_notes(full_mid_data[0], spb, prefs)
     except IndexError:
@@ -125,12 +165,17 @@ def main(path: str):
                           "validScore": True, "bpm": bpm, "speed": scroll_speed, "song": song}}
 
     json_name = song + '-hard.json'
-    with open(json_name, 'w') as json_export:
-        json.dump(full_json, json_export)
+    if DISABLE_PROMPTS:
+        pprint(full_json)
+    else:
+        with open(json_name, 'w') as json_export:
+            json.dump(full_json, json_export)
 
 
 def split_into_sections(notes: list, spb: float):
-    """Time, pitch, vel, dur"""
+    """Split a list of note data into sections. It doesn't matter
+    what format notes is in; the first index must be time in seconds.
+    Time, pitch, vel, dur"""
     section_length = spb * 4
     full_note_data = {}
     for note in notes:
@@ -165,10 +210,16 @@ def compare_sections(en_section: list,
     else:
         must_hit = False
     unsorted_combined_sections = []
-    for en_note in en_section:
-        unsorted_combined_sections.append(en_note)
-    for bf_note in bf_section:
-        unsorted_combined_sections.append(bf_note)
+    if must_hit:  # if must_hit is true or if camera points to bf
+        for en_note in en_section:
+            unsorted_combined_sections.append([en_note[0], en_note[1] + 4, en_note[2]])
+        for bf_note in bf_section:
+            unsorted_combined_sections.append([bf_note[0], bf_note[1], bf_note[2]])
+    else:  # if must_hit is false or if cam points to en
+        for en_note in en_section:
+            unsorted_combined_sections.append([en_note[0], en_note[1], en_note[2]])
+        for bf_note in bf_section:
+            unsorted_combined_sections.append([bf_note[0], bf_note[1] + 4, bf_note[2]])
     sorted_combined_sections = sorted(unsorted_combined_sections, key=lambda x: (x[0], x[1]))
     return sorted_combined_sections, must_hit
 
