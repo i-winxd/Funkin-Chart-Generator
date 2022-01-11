@@ -1,6 +1,7 @@
 """Bruh moment
 """
 # from pprint import pprint
+from pprint import pprint
 
 import midi2 as mid
 
@@ -37,7 +38,7 @@ def format_indv_pitch_bulk(mid_data) -> list[list[list]]:
     outer_export = []
     for channel in mid_data:
         channel_pitch_export = []
-        seperated_pitch_data = seperate_pitches(channel)
+        seperated_pitch_data = separate_pitches(channel)
         for individual_pitch in seperated_pitch_data:
             indv_p = format_channel_indv_pitch(individual_pitch)
             channel_pitch_export.append(indv_p)
@@ -45,11 +46,12 @@ def format_indv_pitch_bulk(mid_data) -> list[list[list]]:
         for indv_pitch in channel_pitch_export:
             for indv_note in indv_pitch:
                 channel_all_export.append(indv_note)
-        outer_export.append(channel_all_export)
+        sorted_channel_all = sorted(channel_all_export, key=lambda x: (x[0], x[1]))
+        outer_export.append(sorted_channel_all)
     return outer_export
 
 
-def seperate_pitches(channel_data) -> list[list]:
+def separate_pitches(channel_data) -> list[list]:
     full_note_data = {}
     for note in channel_data:
         if note[1] not in full_note_data:
@@ -88,6 +90,7 @@ def format_channel_indv_pitch(channel_data):
                     dur = note[2] - last_on_note_data[0]
                     new_data = last_on_note_data + [dur]
                     notes_so_far.append(new_data)
+                    prev_note_state = 'note_off'
                 else:
                     continue
         except IndexError:
@@ -95,7 +98,7 @@ def format_channel_indv_pitch(channel_data):
     return notes_so_far
 
 
-
 if __name__ == '__main__':
-    pm = mid.process_midi('Test_midifile.mid')
-    main(pm)
+    pm = mid.process_midi('tmf.mid')
+    # pprint(pm)
+    pprint(main(pm))
