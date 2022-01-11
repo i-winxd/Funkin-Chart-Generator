@@ -1,5 +1,3 @@
-# This code is broken; don't use it yet.
-
 # Auto chart generator
 Tries to make a FnF chart based on raw midi notes.
 It will take a look at the midi notes for a character,
