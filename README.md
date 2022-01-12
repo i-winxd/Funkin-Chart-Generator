@@ -29,7 +29,7 @@ Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UI
 4. Afterwards, the program will close, and a chart will be generated in the same directory as this ``.py`` or ``.exe``  file.
 
 ## Requirements
-You need the latest version of ``easygui`` (a python package)
+You need the latest version of ``easygui`` and ``mido`` (search up how to install these)
 to run this if you're using the ``.py`` file.
 
 If you are running from ``.exe``, you don't need to
