@@ -23,19 +23,15 @@ Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UI
 * BF/Enemy camera/MustHitSection is automatically handled in the program.
 
 ## Running this program
-1. Open ``midi4.py`` or the ``.exe`` file I included in the release if there is any.
+If you're running the .py file, make sure all requirements below are met.
+1. Open ``midi4.py`` using python 3.10.
 2. Open the midi file it prompts you to open.
 3. Answer all questions.
-4. Afterwards, the program will close, and a chart will be generated in the same directory as this ``.py`` or ``.exe``  file.
+4. Afterwards, the program will close, and a chart will be generated in the same directory as this ``.py`` file.
 
 ## Requirements
 You need the latest version of ``easygui`` and ``mido`` (search up how to install these)
-to run this if you're using the ``.py`` file.
-
-If you are running from ``.exe``, you don't need to
-install anything. However, there are people who don't like
-running ``.exe`` files from random people over the internet,
-so I've included the source code if you want to run from that.
+to run this if you're using the ``.py`` file. You must also be running the latest version of python.
 
 ### How does this program actually work?
 For each character:
