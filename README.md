@@ -32,6 +32,7 @@ If you're running the .py file, make sure all requirements below are met.
 4. Afterwards, the program will close, and a chart will be generated in the same directory as this ``.py`` file.
 
 ## Requirements
+No requirements needed if you're running the exe file.
 You need the latest version of ``easygui`` and ``mido`` (search up how to install these)
 to run this if you're using the ``.py`` file. You must also be running the latest version of python.
 
