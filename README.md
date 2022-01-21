@@ -23,6 +23,8 @@ Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UI
 * BF/Enemy camera/MustHitSection is automatically handled in the program.
 
 ## Running this program
+If you're running the exe, just open the exe file. MAKE SURE IT IS IN A FOLDER AS IT WILL EXPORT EVERYTHING IN THE SAME FOLDER AS THIS EXE FILE!!!
+
 If you're running the .py file, make sure all requirements below are met.
 1. Open ``midi4.py`` using python 3.10.
 2. Open the midi file it prompts you to open.
