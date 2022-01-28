@@ -15,19 +15,22 @@ of you having to chart.
 ## Setting up your midi file
 Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UIs that count from 1) counts from 0.
 
-* Your MIDI channel 0 are your enemy notes.
-* Your MIDI channel 1 are your BF notes.
+* Your MIDI channel 0 are your enemy notes. **(FL Studio channel 1)**
+* Your MIDI channel 1 are your BF notes. **(FL Studio channel 2)**
 * All other MIDI channels are ignored.
 * BPM is automatically detected.
-* BPM changes are not supported. Don't try.
+* **BPM changes are not supported. Don't try.**
 * BF/Enemy camera/MustHitSection is automatically handled in the program.
+* **A sustain note is any note that lasts more than 2 steps (a quarter note) or has a velocity of less than 50% the moment it starts.**
+
+To create and export midis in FL Studio, create MIDI out tracks. When you export, it will export everything in the midi out tracks. Remember to set the channels in the MIDI out tracks.
 
 ## Running this program
 If you're running the exe, just open the exe file. MAKE SURE IT IS IN A FOLDER AS IT WILL EXPORT EVERYTHING IN THE SAME FOLDER AS THIS EXE FILE!!!
 
 If you're running the .py file, make sure all requirements below are met.
 1. Open ``midi4.py`` using python 3.10.
-2. Open the midi file it prompts you to open.
+2. Open the midi file it prompts you to open. (If it doesn't, rerun the app)
 3. Answer all questions.
 4. Afterwards, the program will close, and a chart will be generated in the same directory as this ``.py`` file.
 
