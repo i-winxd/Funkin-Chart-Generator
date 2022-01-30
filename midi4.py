@@ -27,6 +27,7 @@ import logging
 
 
 DISABLE_PROMPTS = False
+SWAP_BF_EN = False
 
 
 @dataclass(frozen=True)
@@ -67,7 +68,7 @@ def process_notes(channel_data, spb: float, prefs: Preferences):
         # account for sustains
         # sus_length = 0 if note[2] >= 60 else note[3]
         if note[2] < 60 or note[3] > (spb / 2) + 0.0001:
-            sus_length = note[3] * 0.85
+            sus_length = note[3] * 0.85 * 1000
         else:
             sus_length = 0
         chart_notes.append([note[0] * 1000, cur_arrow, sus_length])
@@ -90,12 +91,12 @@ def one_or_two_seed(seed: int) -> int:
     """Return 1 or 2; chance of 2 represented by seed.
     """
     seed = abs(seed)
-    seed_map = {0: 0, 1: 1, 2: 1, 3: 2, 4: 3, 5: 3, 6: 4}
+    seed_map = {0: 0, 1: 1, 2: 1, 3: 1, 4: 2, 5: 3, 6: 4}
     if seed <= 6:
         chance = seed_map[seed]
     else:
         chance = 4
-    rand = random.randint(0, 4)
+    rand = random.randint(0, 6)
     # the greater the chance, the higher that it is a two
     # meaning
     if chance >= rand:
@@ -141,6 +142,9 @@ def main(path: str):
     # pprint(full_note_list)
     sectioned_en_list = split_into_sections(full_note_list_en, spb)
     sectioned_bf_list = split_into_sections(full_note_list_bf, spb)
+
+    if SWAP_BF_EN:
+        sectioned_bf_list, sectioned_en_list = sectioned_en_list, sectioned_bf_list
 
     # ensure both lists are the same length
     if len(sectioned_en_list) != len(sectioned_bf_list):
