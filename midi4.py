@@ -123,7 +123,7 @@ def main(path: str):
         else:
             needs_voices = True
         # valid_score = True
-        scroll_speed = input('Scroll speed?: ')
+        scroll_speed = float(input('Scroll speed?: '))
     else:
         p1, p2, gf, song, stage, needs_voices, scroll_speed = 'bf', 'dad', 'gf', \
                                                               'testsong', 'stage', 'True', '2.4'
@@ -150,7 +150,7 @@ def main(path: str):
                 sectioned_en_list.append([])
         if len(sectioned_en_list) > len(sectioned_bf_list):
             for _ in range(0, len_diff):
-                sectioned_en_list.append([])
+                sectioned_bf_list.append([])
 
     musthit = True
     json_notes = []
