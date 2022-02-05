@@ -36,8 +36,14 @@ If you're running the .py file, make sure all requirements below are met.
 
 ## Requirements
 No requirements needed if you're running the exe file.
-You need the latest version of ``easygui`` and ``mido`` (search up how to install these)
-to run this if you're using the ``.py`` file. You must also be running the latest version of python.
+
+If you want to run the python files, you must have the lastest version of python installed. I would suggested installing them from the windows 10 app store.
+You need the latest version of ``easygui`` and ``mido``. Install them using
+```
+pip install easygui
+pip install mido
+```
+in the command prompt if python is already installed.
 
 ### How does this program actually work?
 For each character:
