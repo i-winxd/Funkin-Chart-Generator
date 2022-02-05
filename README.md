@@ -24,7 +24,7 @@ Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UI
 * **A sustain note is any note that lasts more than 2 steps (a quarter note) or has a velocity of less than 50% the moment it starts.**
 
 To create and export midis in FL Studio, create MIDI out tracks. When you export, it will export everything in the midi out tracks. Remember to set the channels in the MIDI out tracks.
-The program may not work if either bf or the enemy do not have any notes.
+The program may not work if either bf or the enemy does not have any notes.
 
 ## Running this program
 If you're running the exe, just open the exe file. MAKE SURE IT IS IN A FOLDER AS IT WILL EXPORT EVERYTHING IN THE SAME FOLDER AS THIS EXE FILE!!!
