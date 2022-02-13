@@ -49,8 +49,8 @@ in the command prompt if python is already installed.
 ### How does this program actually work?
 For each character:
 1. Check the last note (generate a random note if it is the first note in the chart).
-2. If the last note's pitch is higher, reflect that in the chart (same chance that next arrow is 1 or 2 higher).
-3. If the last note's pitch is lower, reflect that in the chart (same chance that next arrow is 1 or 2 lower).
+2. If the last note's pitch is higher, reflect that in the chart (insert note in chart righter than previous. Distance is max. 2 based on music note difference).
+3. If the last note's pitch is lower, reflect that in the chart (insert note in chart lefter than previous).
 4. If the last note's pitch is the same, reflect that in the chart (chance for same arrow or chance for random note).
 
 Arrows always wrap around. This means one higher than the right arrow is the left arrow.
