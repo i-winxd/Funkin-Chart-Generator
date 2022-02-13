@@ -21,7 +21,7 @@ Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UI
 * BPM is automatically detected.
 * **BPM changes are not supported. Don't try.**
 * BF/Enemy camera/MustHitSection is automatically handled in the program.
-* **A sustain note is any note that lasts more than 2 steps (a quarter note) or has a velocity of less than 50% the moment it starts.**
+* **A sustain note is any note that lasts more than 2 steps (8th note) or has a velocity of less than 50% the moment it starts.**
 
 To create and export midis in FL Studio, create MIDI out tracks. When you export, it will export everything in the midi out tracks. Remember to set the channels in the MIDI out tracks.
 The program may not work if either bf or the enemy does not have any notes.
