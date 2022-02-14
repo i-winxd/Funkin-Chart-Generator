@@ -30,7 +30,7 @@ The program may not work if either bf or the enemy does not have any notes.
 If you're running the exe, just open the exe file. MAKE SURE IT IS IN A FOLDER AS IT WILL EXPORT EVERYTHING IN THE SAME FOLDER AS THIS EXE FILE!!!
 
 If you're running the .py file, make sure all requirements below are met.
-1. Open ``midi4.py`` using python 3.10.
+1. Open ``main.py`` using python 3.10.
 2. Open the midi file it prompts you to open. (If it doesn't, rerun the app)
 3. Answer all questions.
 4. Afterwards, the program will close, and a chart will be generated in the same directory as this ``.py`` file.
