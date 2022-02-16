@@ -26,25 +26,24 @@ Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UI
 To create and export midis in FL Studio, create MIDI out tracks. When you export, it will export everything in the midi out tracks. Remember to set the channels in the MIDI out tracks.
 The program may not work if either bf or the enemy does not have any notes.
 
-## Running this program
-If you're running the exe, just open the exe file. MAKE SURE IT IS IN A FOLDER AS IT WILL EXPORT EVERYTHING IN THE SAME FOLDER AS THIS EXE FILE!!!
+## Running this program (FOLLOW INSTALLATION INSTRUCTIONS)
+Using the exe will likely activate your antivirus, so you should be using the ``.py`` file. If you're running the exe, just open the exe file. MAKE SURE IT IS IN A FOLDER AS IT WILL EXPORT EVERYTHING IN THE SAME FOLDER AS THIS EXE FILE!!!
 
 If you're running the .py file, make sure all requirements below are met.
-1. Open ``main.py`` using python 3.10.
-2. Open the midi file it prompts you to open. (If it doesn't, rerun the app)
-3. Answer all questions.
-4. Afterwards, the program will close, and a chart will be generated in the same directory as this ``.py`` file.
+1. Open ``main.py`` using python 3.10. Install python 3.10 **THROUGH THE WINDOWS 10 APP STORE (not anywhere else unless you know what you're doing)**
+2. If you're running this program for the first time enter these in your command prompt line by line:
 
-## Requirements
-No requirements needed if you're running the exe file.
-
-If you want to run the python files, you must have the lastest version of python installed. I would suggested installing them from the windows 10 app store.
-You need the latest version of ``easygui`` and ``mido``. Install them using
 ```
 pip install easygui
 pip install mido
 ```
-in the command prompt if python is already installed.
+3. Open command prompt in the folder you dragged ``main.py`` to. ``midi2.py`` and ``midi3.py`` must be in the same folder as well, so I would drag everything to a seperate folder. You can open command prompt in a folder by literally typing ``cmd`` in whatever this thing is provided your folder is focused:
+
+![image](https://user-images.githubusercontent.com/31808925/154206731-eb74d2a8-27fa-42ac-8b28-61c58eab11c3.png)
+
+4. Open the midi file it prompts you to open. (If it doesn't, rerun the app)
+5. Answer all questions.
+6. Afterwards, the program will close, and a chart will be generated in the same directory as this ``.py`` file.
 
 ### How does this program actually work?
 For each character:
