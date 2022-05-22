@@ -30,7 +30,7 @@ The program may not work if either bf or the enemy does not have any notes.
 Using the exe will likely activate your antivirus, so you should be using the ``.py`` file. If you're running the exe, just open the exe file. MAKE SURE IT IS IN A FOLDER AS IT WILL EXPORT EVERYTHING IN THE SAME FOLDER AS THIS EXE FILE!!!
 
 If you're running the .py file, make sure all requirements below are met.
-1. Open ``main.py`` using python 3.10. Install python 3.10 **THROUGH THE WINDOWS 10 APP STORE (not anywhere else unless you know what you're doing)**
+1. Open ``main.py`` using python 3.10.
 2. If you're running this program for the first time enter these in your command prompt line by line:
 
 ```
