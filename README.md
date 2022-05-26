@@ -27,6 +27,17 @@ To create and export midis in FL Studio, create MIDI out tracks. When you export
 The program may not work if either bf or the enemy does not have any notes.
 
 ## Running this program (FOLLOW INSTALLATION INSTRUCTIONS)
+
+**PLEASE FOLLOW THIS TUTORIAL. TRY NOT TO DOWNLOAD THE EXE FILE UNLESS YOU ARE WILLING TO TAKE RISKS. DEPENDENCIES ARE BELOW**
+https://gist.github.com/i-winxd/0af33288536c155ac06690d3953156a4
+
+```
+pip install easygui
+pip install mido
+```
+
+**LEGACY TEXT BELOW**
+
 Using the exe will likely activate your antivirus, so you should be using the ``.py`` file. If you're running the exe, just open the exe file. MAKE SURE IT IS IN A FOLDER AS IT WILL EXPORT EVERYTHING IN THE SAME FOLDER AS THIS EXE FILE!!!
 
 If you're running the .py file, make sure all requirements below are met.
