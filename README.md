@@ -13,10 +13,12 @@ Yes, this can generate FnF charts without the pain
 of you having to chart.
 
 ## Setting up your midi file
+
 Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UIs that count from 1) counts from 0.
 
 * Your MIDI channel 0 are your enemy notes. **(FL Studio channel 1)**
 * Your MIDI channel 1 are your BF notes. **(FL Studio channel 2)**
+* If you did that in the wrong order, there's an option to swap that.
 * All other MIDI channels are ignored.
 * BPM is automatically detected.
 * **BPM changes are not supported. Don't try.**
@@ -31,30 +33,15 @@ The program may not work if either bf or the enemy does not have any notes.
 **PLEASE FOLLOW THIS TUTORIAL. TRY NOT TO DOWNLOAD THE EXE FILE UNLESS YOU ARE WILLING TO TAKE RISKS. DEPENDENCIES ARE BELOW**
 https://gist.github.com/i-winxd/0af33288536c155ac06690d3953156a4
 
-```
-pip install easygui
-pip install mido
-```
+(Windows only) To quickly run this app, click on `funkinChartGenerator.bat`. This will only work once you've
+installed Python and have successfully ran `pip install mido` before. What this file does is open command prompt,
+where the current working directory is the folder the `.bat` file is in, and run the command `py main.py`.
 
-**LEGACY TEXT BELOW**
+#### Funkin' Chart Generator specific steps
 
-Using the exe will likely activate your antivirus, so you should be using the ``.py`` file. If you're running the exe, just open the exe file. MAKE SURE IT IS IN A FOLDER AS IT WILL EXPORT EVERYTHING IN THE SAME FOLDER AS THIS EXE FILE!!!
-
-If you're running the .py file, make sure all requirements below are met.
-1. Open ``main.py`` using python 3.10.
-2. If you're running this program for the first time enter these in your command prompt line by line:
-
-```
-pip install easygui
-pip install mido
-```
-3. Open command prompt in the folder you dragged ``main.py`` to. ``midi2.py`` and ``midi3.py`` must be in the same folder as well, so I would drag everything to a seperate folder. You can open command prompt in a folder by literally typing ``cmd`` in whatever this thing is provided your folder is focused:
-
-![image](https://user-images.githubusercontent.com/31808925/154206731-eb74d2a8-27fa-42ac-8b28-61c58eab11c3.png)
-
-4. Open the midi file it prompts you to open. (If it doesn't, rerun the app)
-5. Answer all questions.
-6. Afterwards, the program will close, and a chart will be generated in the same directory as this ``.py`` file.
+In `settings.json`, set the values to what you want them to be. Then, run `main.py` and select the **MIDI**
+file it prompts you to open. The program will spit a new file out which should match the name of your song (not 
+the name of the MIDI file).
 
 ### How does this program actually work?
 For each character:

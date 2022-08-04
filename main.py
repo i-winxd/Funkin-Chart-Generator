@@ -9,15 +9,16 @@ Autodetect sections:
     - If 65% of the notes are from a character, it will focus on them
     - Else, it will always do the switch
 """
+import json
+import logging
+import random
 from dataclasses import dataclass
 # from pprint import pprint
 from pprint import pprint
-import midi2 as mid2
-import midi3 as mid3
-import random
-import json
-import easygui
-import logging
+from tkinter.filedialog import askopenfile
+from typing import Union
+
+from do_not_delete_or_move_this import midi3 as mid3, midi2 as mid2
 
 # logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
@@ -26,7 +27,7 @@ import logging
 # a note sequence is a list of notes in a channel.
 
 
-DISABLE_PROMPTS = False
+DISABLE_PROMPTS = True
 SWAP_BF_EN = False
 
 
@@ -105,9 +106,9 @@ def one_or_two_seed(seed: int) -> int:
         return 1
 
 
-def main(path: str):
-    pm = mid2.process_midi(path)
-    spb = mid2.obtain_spb(path)
+def main(path_to: str):
+    pm = mid2.process_midi(path_to)
+    spb = mid2.obtain_spb(path_to)
     # print(spb)
     bpm = round(60 / spb, 3)
     print('Your BPM is ' + str(bpm))
@@ -125,9 +126,16 @@ def main(path: str):
             needs_voices = True
         # valid_score = True
         scroll_speed = float(input('Scroll speed?: '))
+        swap_bf_en2 = False
     else:
-        p1, p2, gf, song, stage, needs_voices, scroll_speed = 'bf', 'dad', 'gf', \
-                                                              'testsong', 'stage', 'True', '2.4'
+        with open("settings.json") as sj:
+            sjd: dict[Union[str, bool, float]] = json.load(sj)
+        p1, p2, gf, song, stage, needs_voices, scroll_speed, swap_bf_en2 = sjd.get("bf", "bf"), sjd.get("en", "dad"), \
+                                                                           sjd.get("gfVersion", "gf"), sjd.get("song",
+                                                                                                              "tempSong"), sjd.get(
+            "stage", ""), sjd.get("hasVoices", True), sjd.get("scrollSpeed", 2.4), sjd.get("swapBfEn", False)
+        # p1, p2, gf, song, stage, needs_voices, scroll_speed = 'bf', 'dad', 'gf', \
+        #                                                      'testsong', 'stage', 'True', '2.4'
 
     full_mid_data = mid3.main(pm)
     prefs = Preferences(0, 65)
@@ -143,7 +151,7 @@ def main(path: str):
     sectioned_en_list = split_into_sections(full_note_list_en, spb)
     sectioned_bf_list = split_into_sections(full_note_list_bf, spb)
 
-    if SWAP_BF_EN:
+    if swap_bf_en2:
         sectioned_bf_list, sectioned_en_list = sectioned_en_list, sectioned_bf_list
 
     # ensure both lists are the same length
@@ -169,11 +177,11 @@ def main(path: str):
                           "validScore": True, "bpm": bpm, "speed": scroll_speed, "song": song}}
 
     json_name = song + '-hard.json'
-    if DISABLE_PROMPTS:
-        pprint(full_json)
-    else:
-        with open(json_name, 'w') as json_export:
-            json.dump(full_json, json_export)
+    # if DISABLE_PROMPTS:
+    #     pprint(full_json)
+    # else:
+    with open(json_name, 'w') as json_export:
+        json.dump(full_json, json_export)
 
 
 def split_into_sections(notes: list, spb: float):
@@ -229,7 +237,9 @@ def compare_sections(en_section: list,
 
 
 if __name__ == '__main__':
-    path = easygui.fileopenbox(msg='Select the *.mid file you want to open',
-                               filetypes=["*.mid"])
+    path = askopenfile(mode="r", title="Open the MIDI file you would like to read.",
+                       filetypes=[("Midi File", "*.mid")])
     print('File selected')
-    main(path)
+    if path is not None:
+        fp = path.name
+        main(fp)
