@@ -53,7 +53,7 @@ For each character:
 Arrows always wrap around. This means one higher than the right arrow is the left arrow.
 
 For each section:
-* Camera focuses at character who has at least 65% of the notes from the sum of both character's notes in a section.
+* Camera focuses at character who has at least 75% of the notes from the sum of both character's notes in a section.
 * If that isn't the case, then the camera will always alternate.
 
 ## Disclaimer
