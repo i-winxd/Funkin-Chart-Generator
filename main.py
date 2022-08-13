@@ -92,11 +92,11 @@ def one_or_two_seed(seed: int) -> int:
     """Return 1 or 2; chance of 2 represented by seed.
     """
     seed = abs(seed)
-    seed_map = {0: 0, 1: 1, 2: 1, 3: 1, 4: 2, 5: 3, 6: 4}
-    if seed <= 6:
+    seed_map = {0: 0, 1: 1, 2: 1, 3: 1, 4: 1, 5: 2, 6: 2, 7: 2, 8: 3}
+    if seed <= 8:
         chance = seed_map[seed]
     else:
-        chance = 4
+        chance = 3
     rand = random.randint(0, 6)
     # the greater the chance, the higher that it is a two
     # meaning
@@ -138,7 +138,7 @@ def main(path_to: str):
         #                                                      'testsong', 'stage', 'True', '2.4'
 
     full_mid_data = mid3.main(pm)
-    prefs = Preferences(0, 65)
+    prefs = Preferences(0, 75)
     try:
         full_note_list_en = process_notes(full_mid_data[0], spb, prefs)
     except IndexError:
