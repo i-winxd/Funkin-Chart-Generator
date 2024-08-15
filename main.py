@@ -33,11 +33,7 @@ SWAP_BF_EN = False
 
 @dataclass(frozen=True)
 class Preferences:
-    """A class representing preferences
-    Representation invariants:
-        - 0 <= jack_mode <= 3
-    """
-    jack_mode: int  # the chance out of 3 for jacks to be skipped.
+    jack_mode: int  # the chance out of 3 for jacks to be skipped. 0 <= jack_mode <= 3
     note_tolerance: int  # the % of notes required for camera to focus on character
 
 
@@ -112,6 +108,11 @@ def main(path_to: str):
     # print(spb)
     bpm = round(60 / spb, 3)
     print('Your BPM is ' + str(bpm))
+
+
+    jack_mode = 1
+    percentage_required = 75
+
     if not DISABLE_PROMPTS:
         p1 = input('Player 1? (Likely bf): ')
         p2 = input('Player 2? (Enemy): ')
@@ -136,9 +137,13 @@ def main(path_to: str):
             "stage", ""), sjd.get("hasVoices", True), sjd.get("scrollSpeed", 2.4), sjd.get("swapBfEn", False)
         # p1, p2, gf, song, stage, needs_voices, scroll_speed = 'bf', 'dad', 'gf', \
         #                                                      'testsong', 'stage', 'True', '2.4'
+        if "jackMode" in sjd:
+            jack_mode = sjd["jackMode"]
+        if "percentageRequired" in sjd:
+            percentage_required = sjd["percentageRequired"]
 
     full_mid_data = mid3.main(pm)
-    prefs = Preferences(0, 75)
+    prefs = Preferences(jack_mode, percentage_required)
     try:
         full_note_list_en = process_notes(full_mid_data[0], spb, prefs)
     except IndexError:

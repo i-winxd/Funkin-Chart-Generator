@@ -28,20 +28,23 @@ Remember FL Studio counts MIDI channels from 1 while everyone else (excluding UI
 To create and export midis in FL Studio, create MIDI out tracks. When you export, it will export everything in the midi out tracks. Remember to set the channels in the MIDI out tracks.
 The program may not work if either bf or the enemy does not have any notes.
 
-## Running this program (FOLLOW INSTALLATION INSTRUCTIONS)
+## Installation
 
-**PLEASE FOLLOW THIS TUTORIAL. TRY NOT TO DOWNLOAD THE EXE FILE UNLESS YOU ARE WILLING TO TAKE RISKS. DEPENDENCIES ARE BELOW**
-https://gist.github.com/i-winxd/0af33288536c155ac06690d3953156a4
-
-(Windows only) To quickly run this app, click on `funkinChartGenerator.bat`. This will only work once you've
-installed Python and have successfully ran `pip install mido` before. What this file does is open command prompt,
-where the current working directory is the folder the `.bat` file is in, and run the command `py main.py`.
+Go to releases and download the zip file over there. Download the correct one. Then, extract everything there to its own folder.
 
 #### Funkin' Chart Generator specific steps
 
 In `settings.json`, set the values to what you want them to be. Then, run `main.py` and select the **MIDI**
 file it prompts you to open. The program will spit a new file out which should match the name of your song (not 
 the name of the MIDI file).
+
+Some special fields:
+
+- `jackMode`: `jackMode`/3 chance on every "jack" (two same consecutive notes) to make it not a jack anymore (default 0)
+    - set to 3 to eliminate jacks
+- `percentageRequired`: for each section, % of notes needed on one side for that section to be that character's section (default 75)
+
+
 
 ### How does this program actually work?
 For each character:

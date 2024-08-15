@@ -1,0 +1,76 @@
+on:
+  release:
+    types: [ published ]
+
+permissions:
+  contents: write
+
+
+jobs:
+  build:
+    env:
+      ENTRY_POINT: main.py
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ 'windows-latest', 'macos-latest', 'ubuntu-latest' ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.12.5
+      - run: pip install -r requirements.txt pyinstaller
+      - name: Pyinstaller windows
+        if: runner.os == 'Windows'
+        run: pyinstaller ${{ env.ENTRY_POINT }} --onefile --name ${{github.event.repository.name}}-win
+      - name: Pyinstaller MacOS
+        if: runner.os == 'macOS'
+        run: pyinstaller ${{ env.ENTRY_POINT }} --onefile --name ${{github.event.repository.name}}-mac
+      - name: Pyinstaller Linux
+        if: runner.os == 'Linux'
+        run: pyinstaller ${{ env.ENTRY_POINT }} --onefile --name ${{github.event.repository.name}}-linux
+
+      - name: Include to dist, MacOS/Linux
+        if: runner.os != 'Windows'
+        run: mv settings.json dist/settings.json
+      - name: Include to dist, Windows only
+        if: runner.os == 'Windows'
+        run: move settings.json dist\settings.json
+
+      - name: MacOS zip folder
+        if: runner.os == 'macOS'
+        run: zip -r dist-macos.zip dist
+
+      - name: Linux zip folder
+        if: runner.os == 'Linux'
+        run: zip -r dist-linux.zip dist
+
+      - name: Windows zip folder
+        if: runner.os == 'Windows'
+        run: Compress-Archive -Path dist/* -Destination dist-win.zip
+
+      - name: Upload release Windows
+        if: runner.os == 'Windows'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist-win.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
+      - name: Upload release macOS
+        if: runner.os == 'macOS'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist-macos.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload release Linux
+        if: runner.os == 'Linux'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist-linux.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -6,5 +6,7 @@
   "stage": "stage",
   "hasVoices": true,
   "scrollSpeed": 2.8,
-  "swapBfEn": false
+  "swapBfEn": false,
+  "jackMode": 0,
+  "percentageRequired": 75
 }
