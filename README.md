@@ -1,4 +1,10 @@
 # Auto chart generator
+
+**THIS HAS A USER INTERFACE SEE THE RELEASES ON THE RIGHT THIS
+CAN BE DOWNLOADED AS JUST ONE EXE FILE**
+
+https://github.com/i-winxd/Funkin-Chart-Generator/releases/
+
 Tries to make a FnF chart based on raw midi notes.
 It will take a look at the midi notes for a character,
 and attempt to generate a chart based on it.
@@ -30,11 +36,13 @@ The program may not work if either bf or the enemy does not have any notes.
 
 ## Installation
 
-Go to releases and download the zip file over there. Download the correct one. Then, extract everything there to its own folder.
+Go to releases and download the zip file over there. Download the correct one. Then, extract everything there to its own folder. Then, run the EXE file.
 
+
+<!--
 #### Funkin' Chart Generator specific steps
 
-In `settings.json`, set the values to what you want them to be. Then, run `main.py` and select the **MIDI**
+In `settings.json`, set the values to what you want them to be. Then, run `chart_gen.py` and select the **MIDI**
 file it prompts you to open. The program will spit a new file out which should match the name of your song (not 
 the name of the MIDI file).
 
@@ -43,7 +51,7 @@ Some special fields:
 - `jackMode`: `jackMode`/3 chance on every "jack" (two same consecutive notes) to make it not a jack anymore (default 0)
     - set to 3 to eliminate jacks
 - `percentageRequired`: for each section, % of notes needed on one side for that section to be that character's section (default 75)
-
+-->
 
 
 ### How does this program actually work?
@@ -66,3 +74,8 @@ really messy.
 ambitious mod. While this may chart songs quickly and
 accurately (based on timings) the patterns may not be
 fun to play. I did not test this.
+
+## Running this programatically
+
+Read `gen_ui.py` assuming `FCGInputs.get_instance_from_ui` just returns what
+you selected in the UI
