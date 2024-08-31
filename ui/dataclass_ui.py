@@ -285,7 +285,7 @@ class DataclassUI:
 
     @classmethod
     def get_instance_from_ui(cls: Type[_T], title: str = "Form", desc: str = "",
-                             custom_check: Optional[Callable[[_T], Optional[str]]] = None) -> _T:
+                             custom_check: Optional[Callable[[_T], Optional[str]]] = None, sbmt: str = "Submit") -> _T:
         """Displays a UI to the user that lets them construct the dataclass.
         Return dataclass generated, or None if user input is malformed
 
@@ -309,8 +309,8 @@ class DataclassUI:
 
         frame = tk.Frame(root) #  tk.Frame(root)
         frame.pack(expand=True, side="top", anchor="n")
-        pdx = 5
-        pdy = 5
+        pdx = 1
+        pdy = 1
         top_offset = 0
         if desc != "":
             top_offset += 1
@@ -447,7 +447,7 @@ class DataclassUI:
                 dc_val.clear()
                 err_msg.set("Some fields are not the right type (for example, a number field that is not a number)")
 
-        button = tk.Button(frame, text="submit", command=on_exit)
+        button = tk.Button(frame, text=sbmt, command=on_exit)
         button.grid(row=len(widgets) + top_offset, column=0, padx=pdx, pady=pdy, columnspan=2)
         err_label = tk.Label(frame, textvariable=err_msg)
         err_label.grid(row=len(widgets) + top_offset + 1, column=0, padx=pdx, pady=pdy, columnspan=2)

@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
@@ -7,12 +8,12 @@ from ui import DataclassUI
 @dataclass
 class FCGInputs(DataclassUI):
     path_to: Path = field(default=Path(""),metadata={'title': 'Select MIDI file', 'filetypes':[('MIDI Files', '*.mid')]})
-    jack_mode: int = field(default=0, metadata={'title': 'Jack skip probability\nProbability out of 3 that a jack\ngets skipped (from 0-3), integers only'})
+    jack_mode: int = field(default=3, metadata={'title': 'Jack skip probability/3, integers only'})
     percentage_required: int = field(default=70, metadata={'title': 'Percentage Required\n% notes owned by char for camera to face them\n(from 0-100, integers only)'})
     p1: str = field(default="bf", metadata={'title': 'Player 1'})
     p2: str = field(default="dad", metadata={'title': 'Player 2'})
     gf: str = field(default="gf", metadata={"title": "GF"})
-    song: str = field(default="", metadata={'title': 'Song\nThe JSON file will be named this as well'})
+    song: str = field(default="", metadata={'title': 'Song name'})
     stage: str = field(default="", metadata={'title': 'Stage'})
     needs_voices: bool = field(default=True, metadata={'title': 'Needs voices (Just set this to true)'})
     scroll_speed: float = field(default=2, metadata={'title': 'Scroll speed'})
@@ -32,7 +33,7 @@ def cc(c:FCGInputs)->Optional[str]:
         return None
 
 if __name__ == "__main__":
-    fcg_inputs = FCGInputs.get_instance_from_ui(title="Funkin' chart generator", desc="Funkin' chart generator. Generate a chart from MIDIs. MIDI ch1=EN, ch2=BF, one-indexed (based on FL)", custom_check=cc)
+    fcg_inputs = FCGInputs.get_instance_from_ui(title="Funkin' chart generator", desc="Funkin' chart generator. Generate a chart from MIDIs. MIDI ch1=EN, ch2=BF, one-indexed (based on FL)", custom_check=cc, sbmt=f"Submit and export JSON as {os.path.basename(os.getcwd())}/<song_name>.json")
     
     process(path_to=str(fcg_inputs.path_to),
             jack_mode=fcg_inputs.jack_mode,
