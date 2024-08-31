@@ -38,7 +38,11 @@ The program may not work if either bf or the enemy does not have any notes.
 
 Go to releases and download the zip file over there. Download the correct one. Then, extract everything there to its own folder. Then, run the EXE file.
 
+Field meanings
 
+- Jack skip probability: `jackMode`/3 chance on every "jack" (two same consecutive notes) to make it not a jack anymore
+    - set to 3 to eliminate jacks
+- Percentage required: for each section, % of notes needed on one side for that section to be that character's section
 <!--
 #### Funkin' Chart Generator specific steps
 
