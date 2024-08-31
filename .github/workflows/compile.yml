@@ -9,7 +9,7 @@ permissions:
 jobs:
   build:
     env:
-      ENTRY_POINT: main.py
+      ENTRY_POINT: gen_ui.py
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
