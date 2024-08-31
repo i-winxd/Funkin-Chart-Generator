@@ -136,6 +136,7 @@ from tkinter import filedialog
 from types import MappingProxyType
 
 
+
 class _EditableListbox(tk.Listbox):
     """A listbox where you can directly edit an item via double-click
     https://stackoverflow.com/questions/64609658/python-tkinter-listbox-text-edit-in-gui
@@ -303,7 +304,10 @@ class DataclassUI:
         widgets: dict[str, Callable[[], Any]] = {}
         root.minsize(300, 300)
         root.title(title)
-        frame = tk.Frame(root)
+        # v = tk.Scrollbar(root)
+        # v.pack(side=tk.RIGHT,fill=tk.Y)
+
+        frame = tk.Frame(root) #  tk.Frame(root)
         frame.pack(expand=True, side="top", anchor="n")
         pdx = 5
         pdy = 5
